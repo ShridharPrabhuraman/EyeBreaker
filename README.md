@@ -1,6 +1,10 @@
 # EyeBreaker
 
-# Trainer.py | Obtaining Training Data
+## To Contribute
+- Clone the Dev Branch (No need to fork) (git clone
+- Make changes in your local machine
+- 
+## Trainer.py | Obtaining Training Data
 - Present in 'trainer/trainer.py'
 - To execute
     - Check dependencies and install if required
