@@ -14,7 +14,7 @@ from datetime import datetime
 
 def main():
 
-    option = sys.args[1]
+    option = sys.argv[1]
     timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
     if option == "facing":
