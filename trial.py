@@ -8,10 +8,10 @@ from face_detector import get_face_detector, find_faces
 from face_landmarks import get_landmark_model, detect_marks, draw_marks
 import pickle
 import sklearn
-from playsound import playsound
+# from playsound import playsound
 import tracemalloc
 
-playsound('hollow-582.mp3')
+# playsound('hollow-582.mp3')
 
 face_model = get_face_detector()
 landmark_model = get_landmark_model()
@@ -52,7 +52,7 @@ def process():
                             end = time.time()
                             if int(end-start) > 6:
                                 print(f'Break finished after {int(end-start)} seconds.')
-                                playsound('hollow-582.mp3')
+                                # playsound('hollow-582.mp3')
                                 multiple = 1
                                 start = time.time()
                             else:
@@ -67,7 +67,7 @@ def process():
                         if int(end-start) > 60*multiple:
                             multiple += 1
                             print(f'It\'s been {int(end-start)} seconds. Take a break now!')
-                            playsound('hollow-582.mp3')
+                            # playsound('hollow-582.mp3')
                         
                         if buffer_2 >3:
                             cap.release()
@@ -98,43 +98,9 @@ def process():
             cap = cv2.VideoCapture(0)
         snapshot2 = tracemalloc.take_snapshot()
         top_stats = snapshot2.compare_to(snapshot1, 'lineno')
-        print("[ Top 10 differences ]")
-        for stat in top_stats[:10]:
-            print(stat)
+
+        import os
+        import psutil
+        process = psutil.Process(os.getpid())
+        print("Usage: " + str(process.memory_info().rss/1000000) + " MB")
                             
-                            
-
-
-
-process()
-# ret, img = cap.read()
-
-
-# cnt = 0
-# start = time.time()
-# print(start)
-# while True:
-#     time.sleep(0.5)
-#     if cnt==35:
-#         break
-#     cnt += 1
-#     ret, img = cap.read()
-#     if ret == True:
-#         faces = find_faces(img, face_model)
-#         for face in faces:
-#             orig,marks = detect_marks(img, landmark_model, face)
-            
-#             c = np.reshape(marks,(136,1)).T
-#             res = loaded_model.predict(c)
-#             print('Straight' if res[0]==1 else 'RELAXED')
-            
-
-
-#             draw_marks(img, marks, color=(0, 255, 0))
-#         cv2.imshow('img', img)
-#         # print(marks)
-#         if cv2.waitKey(1) == 113:
-#             break
-
-# end = time.time()
-# print(end - start)

@@ -12,6 +12,10 @@ import cv2
 import time
 from datetime import datetime
 
+import os
+import psutil
+process = psutil.Process(os.getpid())
+
 def main():
 
     option = sys.argv[1]
@@ -34,6 +38,7 @@ def main():
     while(True):
         frame_exists,frame = vid.read()
         cv2.imshow('frame', frame)  
+        print("Usage: " + str(process.memory_info().rss/1000000) + " MB")
         if frame_exists:
             cv2.imwrite(_path+"/%d.jpg"%count,frame)
         time.sleep(1)
@@ -43,5 +48,7 @@ def main():
 
     vid.release()
     cv2.destroyAllWindows()
+
+   
 
 main()

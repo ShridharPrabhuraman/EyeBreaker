@@ -1,2 +1,2 @@
-# 16 June 2021
-    - Added trainer/trainer.py
+Todo
+- Currently the model only works for when we are looking at the screen straight, train it for other angles as well.
