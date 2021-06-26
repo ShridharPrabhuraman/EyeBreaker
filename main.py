@@ -1,4 +1,5 @@
 from trial import process
+
 # The three imports here are non-used : they were hidden and pyinstaller could not identify them 
 import scipy
 import sklearn
@@ -14,12 +15,9 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.pushButton_6.clicked.connect(process)
+        self.ui.pushButton_6.clicked.connect(lambda: process(self.ui.textEdit.toPlainText(), self.ui.textEdit_2.toPlainText(), self.ui.textEdit_3.toPlainText()))
         self.ui.pushButton_4.clicked.connect(self.close)
-    
-    def run_clicked(self):
-        self.tabWidget.setCurrentIndex(1)
-        process()
+
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
