@@ -8,33 +8,31 @@ from face_detector import get_face_detector, find_faces
 from face_landmarks import get_landmark_model, detect_marks, draw_marks
 import pickle
 import sklearn
-# from playsound import playsound
-import tracemalloc
+from playsound import playsound
 
-# playsound('hollow-582.mp3')
+playsound('hollow-582.mp3')
 
 face_model = get_face_detector()
 landmark_model = get_landmark_model()
 loaded_model = pickle.load(open('mymodel.save', 'rb'))
 
-# cap.release()
-# print(cap)
-tracemalloc.start()
 
-def process():
-    cap = cv2.VideoCapture(0)
+
+def process(focus_time=600,break_time=60,threshold=7):
+    cap = cv2.VideoCapture()
+    cap.open(0,cv2.CAP_DSHOW)
+
     taking_break = True
     buffer = 0
     buffer_2 = 0
-    threshold = 6
+    threshold = threshold
     multiple = 1
     start = time.time()
     old_time = start
 
     while True:
-        # print('Working' if taking_break==False else 'Taking Break')
-        snapshot1 = tracemalloc.take_snapshot()
         time.sleep(0.5)
+        
         ret, img = cap.read()
         if ret == True:
             faces = find_faces(img, face_model)
@@ -50,9 +48,9 @@ def process():
                             taking_break = False
                             buffer = 0
                             end = time.time()
-                            if int(end-start) > 6:
+                            if int(end-start) > break_time:
                                 print(f'Break finished after {int(end-start)} seconds.')
-                                # playsound('hollow-582.mp3')
+                                playsound('hollow-582.mp3')
                                 multiple = 1
                                 start = time.time()
                             else:
@@ -64,15 +62,15 @@ def process():
                         buffer = 0
                         end = time.time()
                         buffer_2 += 1
-                        if int(end-start) > 60*multiple:
+                        if int(end-start) > focus_time*multiple:
                             multiple += 1
-                            print(f'It\'s been {int(end-start)} seconds. Take a break now!')
-                            # playsound('hollow-582.mp3')
+                            print(f'It\'s been {int( (end-start)/60)} minutes. Take a break now!')
+                            playsound('hollow-582.mp3')
                         
                         if buffer_2 >3:
                             cap.release()
                             buffer_2 = 0
-                            time.sleep(15)
+                            time.sleep(45)
                         
                     else:
                         buffer += 1
@@ -95,12 +93,9 @@ def process():
                         old_time = start
                         start = time.time()
         else:
-            cap = cv2.VideoCapture(0)
-        snapshot2 = tracemalloc.take_snapshot()
-        top_stats = snapshot2.compare_to(snapshot1, 'lineno')
-
-        import os
-        import psutil
-        process = psutil.Process(os.getpid())
-        print("Usage: " + str(process.memory_info().rss/1000000) + " MB")
+            cap.open(0,cv2.CAP_DSHOW)
+        
                             
+                            
+
+# process()
