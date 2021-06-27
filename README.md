@@ -33,6 +33,9 @@ Some of the customization that you can do:
  - Break Period: Number of seconds you want to take break. Default 60 seconds (1 Minute).
  - Checking Period: At what intervals should the camera check if you are on-screen or off-screen. Default 45 seconds.
 
+When you start using the tool, it will capture snapshots using your camera/webcam at regular interval based on the checking period variable, and will determine if you are watching the screen or taking a break. When you should be taking break after (Focus Time) minutes of screen time, there will be a sound played for you to notify the start and end of the break period.
+
+We have minimized the usage of Memory that this program consumes and with the checking period you can control the usage of how often the camera captures and determines your screentime, thus saving battery consumption.
 
 ### UI Screenshots
 ![Screen Shot 2021-06-27 at 2 49 22 PM](https://user-images.githubusercontent.com/15246084/123539543-ef30a000-d757-11eb-88ac-3c4e8c52f14a.png)
