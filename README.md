@@ -12,6 +12,7 @@ The tool uses your device\'s camera/webcam to track your face direction using Ma
 
 ### Run this Tool
 To run this tool you need to install some python libraries. It would be prefered if you create a new python environment to avoid any version clashes with your system's global libraries.
+
 Python Virtual Environment Reference: https://docs.python.org/3/library/venv.html
 
 Next step is to install all the packages to your environment. After you have sourced your environment with the command:
