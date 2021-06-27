@@ -1,4 +1,5 @@
-from trial import process
+from trial import process,process_kill
+import threading
 
 # The three imports here are non-used : they were hidden and pyinstaller could not identify them 
 import scipy
@@ -15,8 +16,23 @@ class ApplicationWindow(QtWidgets.QMainWindow):
 
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
-        self.ui.pushButton_6.clicked.connect(lambda: process(self.ui.textEdit.toPlainText(), self.ui.textEdit_2.toPlainText(), self.ui.textEdit_3.toPlainText()))
-        self.ui.pushButton_4.clicked.connect(self.close)
+        # self.ui.pushButton_6.clicked.connect(lambda: process(int(self.ui.textEdit.toPlainText()), int(self.ui.textEdit_2.toPlainText()), int(self.ui.textEdit_3.toPlainText())))
+        self.ui.pushButton_6.clicked.connect(self.start_process)
+        self.ui.pushButton_4.clicked.connect(self.stop_process)
+
+    def stop_process(self):
+        process_kill()
+        self.x.join()
+        print('Stopped')
+
+
+    def start_process(self):
+        try:
+            self.x = threading.Thread(target=process, args=(int(self.ui.textEdit.toPlainText()), int(self.ui.textEdit_2.toPlainText()), int(self.ui.textEdit_3.toPlainText())))
+            self.x.start()
+        except:
+            print("Threading failed")
+
 
 
 def main():

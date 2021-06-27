@@ -15,10 +15,14 @@ playsound('hollow-582.mp3')
 face_model = get_face_detector()
 landmark_model = get_landmark_model()
 loaded_model = pickle.load(open('mymodel.save', 'rb'))
+running_process = False
+
+def process_kill():
+    global running_process
+    running_process = False
 
 
-
-def process(focus_time=600,break_time=60,threshold=7):
+def process(focus_time=600,break_time=60,camera_time=45,threshold=7):
     cap = cv2.VideoCapture()
     cap.open(0,cv2.CAP_DSHOW)
 
@@ -29,8 +33,10 @@ def process(focus_time=600,break_time=60,threshold=7):
     multiple = 1
     start = time.time()
     old_time = start
+    global running_process
+    running_process = True
 
-    while True:
+    while running_process:
         time.sleep(0.5)
         
         ret, img = cap.read()
@@ -70,7 +76,7 @@ def process(focus_time=600,break_time=60,threshold=7):
                         if buffer_2 >3:
                             cap.release()
                             buffer_2 = 0
-                            time.sleep(45)
+                            time.sleep(camera_time)
                         
                     else:
                         buffer += 1
